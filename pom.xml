@@ -1,68 +1,89 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-</dependency>
-<dependency>
-<groupId>org.junit.jupiter</groupId>
-<artifactId>junit-jupiter-engine</artifactId>
-<version>${junit.jupiter.version}</version>
-<scope>test</scope>
-</dependency>
+﻿<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
 
+  <groupId>com.example</groupId>
+  <artifactId>jenkins-starter</artifactId>
+  <version>1.0.0</version>
+  <packaging>jar</packaging>
 
-<!-- Optional: SLF4J simple for safe logging in small apps -->
-<dependency>
-<groupId>org.slf4j</groupId>
-<artifactId>slf4j-simple</artifactId>
-<version>2.0.9</version>
-</dependency>
-</dependencies>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.release>17</maven.compiler.release>
+    <junit.jupiter.version>5.10.0</junit.jupiter.version>
+    <maven.surefire.plugin.version>3.1.2</maven.surefire.plugin.version>
+    <maven.shade.plugin.version>3.4.1</maven.shade.plugin.version>
+  </properties>
 
+  <dependencies>
+    <!-- JUnit Jupiter for tests -->
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <version>${junit.jupiter.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>${junit.jupiter.version}</version>
+      <scope>test</scope>
+    </dependency>
 
-<build>
-<plugins>
-<!-- Compiler plugin (uses release property) -->
-<plugin>
-<groupId>org.apache.maven.plugins</groupId>
-<artifactId>maven-compiler-plugin</artifactId>
-<version>3.11.0</version>
-<configuration>
-<release>${maven.compiler.release}</release>
-</configuration>
-</plugin>
+    <!-- Optional: SLF4J simple for safe logging in small apps -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-simple</artifactId>
+      <version>2.0.9</version>
+    </dependency>
+  </dependencies>
 
+  <build>
+    <plugins>
+      <!-- Compiler plugin (uses release property) -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.11.0</version>
+        <configuration>
+          <release>${maven.compiler.release}</release>
+        </configuration>
+      </plugin>
 
-<!-- Surefire for unit tests -->
-<plugin>
-<groupId>org.apache.maven.plugins</groupId>
-<artifactId>maven-surefire-plugin</artifactId>
-<version>${maven.surefire.plugin.version}</version>
-<configuration>
-<useModulePath>false</useModulePath>
-</configuration>
-</plugin>
+      <!-- Surefire for unit tests -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>${maven.surefire.plugin.version}</version>
+        <configuration>
+          <useModulePath>false</useModulePath>
+        </configuration>
+      </plugin>
 
-
-<!-- Shade plugin to create an executable "fat" jar -->
-<plugin>
-<groupId>org.apache.maven.plugins</groupId>
-<artifactId>maven-shade-plugin</artifactId>
-<version>${maven.shade.plugin.version}</version>
-<executions>
-<execution>
-<phase>package</phase>
-<goals>
-<goal>shade</goal>
-</goals>
-<configuration>
-<createDependencyReducedPom>false</createDependencyReducedPom>
-<transformers>
-<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-<mainClass>com.example.App</mainClass>
-</transformer>
-</transformers>
-</configuration>
-</execution>
-</executions>
-</plugin>
-</plugins>
-</build>
+      <!-- Shade plugin to create an executable "fat" jar -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>${maven.shade.plugin.version}</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <createDependencyReducedPom>false</createDependencyReducedPom>
+              <transformers>
+                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                  <mainClass>com.example.App</mainClass>
+                </transformer>
+              </transformers>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
 </project>
